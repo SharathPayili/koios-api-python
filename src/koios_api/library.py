@@ -6,6 +6,7 @@ from time import sleep
 import requests
 
 from .__config__ import *
+from security import safe_requests
 
 
 def get_error_message(response: requests.Response) -> str:
@@ -49,7 +50,7 @@ def koios_get_request(url: str, parameters: dict) -> list:
         parameters["order"] = "block_height.asc"
     while True:
         try:
-            response = requests.get(
+            response = safe_requests.get(
                 url, headers=headers, params=parameters, timeout=REQUEST_TIMEOUT
             )
             if response.status_code == 200:
